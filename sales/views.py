@@ -25,6 +25,7 @@ import logging
 # Configure logging
 logger = logging.getLogger(__name__)
 
+
 def sales_entry(request):
     dispatcher_names = get_dispatcher_names()
     dispatcher_choices = [(name.strip(), name.strip()) for name in dispatcher_names if name.strip()]

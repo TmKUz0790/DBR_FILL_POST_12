@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sales Entry Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f9;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px 30px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        label {
+            font-size: 1rem;
+            font-weight: bold;
+            color: #555;
+            display: block;
+            margin-bottom: 5px;
+        }
+        input, select, button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+            box-sizing: border-box;
+        }
+        input:focus, select:focus {
+            border-color: #007bff;
+            outline: none;
+            box-shadow: 0 0 3px rgba(0, 123, 255, 0.5);
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .display-total {
+            font-size: 1.5rem;
+            margin-top: 10px;
+            font-weight: bold;
+            color: #555;
+        }
+        .error {
+            color: red;
+            font-size: 0.9em;
+            margin-top: -10px;
+            margin-bottom: 10px;
+        }
+        .tooltip {
+            font-size: 0.9em;
+            color: #777;
+            margin-bottom: 10px;
+            display: block;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .non-field-errors {
+            background-color: #ffdddd;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid red;
+            border-radius: 4px;
+        }
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Sales Entry Form</h1>
+        <form method="post" action="">
+            {% csrf_token %}
+            {% for field in form %}
+            {% if field.name != 'total' %}
+            <div class="form-group">
+                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                {{ field }}
+                {% if field.help_text %}
+                <span class="tooltip">{{ field.help_text }}</span>
+                {% endif %}
+                {% if field.errors %}
+                    <div class="error">
+                        {% for error in field.errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+            {% endif %}
+            {% endfor %}
+            <div id="display-total" class="display-total"></div>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const quantityInput = document.getElementById('{{ form.quantity.id_for_html_id }}');
+            const priceInput = document.getElementById('{{ form.price.id_for_html_id }}');
+            const totalDisplay = document.getElementById('display-total');
+
+            function calculateTotal() {
+                const quantity = parseFloat(quantityInput.value) || 0;
+                const price = parseFloat(priceInput.value) || 0;
+                totalDisplay.textContent = 'Total: ' + (quantity * price).toFixed(2) + ' сум';
+            }
+
+            quantityInput.addEventListener('input', calculateTotal);
+            priceInput.addEventListener('input', calculateTotal);
+            quantityInput.addEventListener('keyup', calculateTotal);
+            priceInput.addEventListener('keyup', calculateTotal);
+        });
+    </script>
+</body>
+</html>

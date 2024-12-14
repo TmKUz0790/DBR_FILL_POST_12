@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Error</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8d7da;
+            color: #721c24;
+            text-align: center;
+            padding: 50px;
+        }
+        .container {
+            border: 1px solid #f5c6cb;
+            background-color: #f8d7da;
+            padding: 20px;
+            border-radius: 5px;
+            display: inline-block;
+        }
+        h1 {
+            font-size: 2em;
+        }
+        p {
+            font-size: 1.2em;
+        }
+        a {
+            color: #721c24;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Oops! Something went wrong</h1>
+        <p>{{ error }}</p> <!-- Dynamically displays the error passed from the view -->
+        <p><a href="/">Go back to the home page</a></p>
+    </div>
+</body>
+</html>

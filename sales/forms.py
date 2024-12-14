@@ -78,6 +78,7 @@ class SalesEntryForm(forms.Form):
     ]
 
 
+
     name = forms.ChoiceField(label='Наименование', choices=[], widget=forms.Select, required=True)
     client = forms.ChoiceField(label='Контрагенты', choices=[], widget=forms.Select, required=True)
     date = forms.DateField(label='Дата', widget=forms.HiddenInput(), initial=date.today)

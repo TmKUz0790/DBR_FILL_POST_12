@@ -1,14 +1,244 @@
+{##}
+{##}
+{##}
+{#<!DOCTYPE html>#}
+{#<html lang="en">#}
+{#<head>#}
+{#    <meta charset="UTF-8">#}
+{#    <meta name="viewport" content="width=device-width, initial-scale=1.0">#}
+{#    <title>Sales Entry Form</title>#}
+{#    <style>#}
+{#        body {#}
+{#            font-family: Arial, sans-serif;#}
+{#            background-color: #f4f6f9;#}
+{#            margin: 0;#}
+{#            padding: 0;#}
+{#        }#}
+{#        .container {#}
+{#            max-width: 600px;#}
+{#            margin: 50px auto;#}
+{#            background: white;#}
+{#            border-radius: 8px;#}
+{#            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);#}
+{#            padding: 20px 30px;#}
+{#        }#}
+{#        h1 {#}
+{#            text-align: center;#}
+{#            color: #333;#}
+{#        }#}
+{#        label {#}
+{#            font-size: 1rem;#}
+{#            font-weight: bold;#}
+{#            color: #555;#}
+{#            display: block;#}
+{#            margin-bottom: 5px;#}
+{#        }#}
+{#        input, select, button {#}
+{#            width: 100%;#}
+{#            padding: 10px;#}
+{#            margin-bottom: 15px;#}
+{#            border: 1px solid #ddd;#}
+{#            border-radius: 4px;#}
+{#            font-size: 1rem;#}
+{#            box-sizing: border-box;#}
+{#        }#}
+{#        input:focus, select:focus {#}
+{#            border-color: #007bff;#}
+{#            outline: none;#}
+{#            box-shadow: 0 0 3px rgba(0, 123, 255, 0.5);#}
+{#        }#}
+{#        button {#}
+{#            background-color: #007bff;#}
+{#            color: white;#}
+{#            border: none;#}
+{#            font-weight: bold;#}
+{#            cursor: pointer;#}
+{#            transition: background-color 0.3s ease;#}
+{#        }#}
+{#        button:hover {#}
+{#            background-color: #0056b3;#}
+{#        }#}
+{#        .display-total {#}
+{#            font-size: 1.5rem;#}
+{#            margin-top: 10px;#}
+{#            font-weight: bold;#}
+{#            color: #555;#}
+{#        }#}
+{#        .error {#}
+{#            color: red;#}
+{#            font-size: 0.9em;#}
+{#            margin-top: -10px;#}
+{#            margin-bottom: 10px;#}
+{#        }#}
+{#        .tooltip {#}
+{#            font-size: 0.9em;#}
+{#            color: #777;#}
+{#            margin-bottom: 10px;#}
+{#            display: block;#}
+{#        }#}
+{#        .form-group {#}
+{#            margin-bottom: 20px;#}
+{#        }#}
+{#        .non-field-errors {#}
+{#            background-color: #ffdddd;#}
+{#            padding: 10px;#}
+{#            margin-bottom: 20px;#}
+{#            border: 1px solid red;#}
+{#            border-radius: 4px;#}
+{#        }#}
+{#        fieldset {#}
+{#            border: 1px solid #ddd;#}
+{#            padding: 20px;#}
+{#            margin-bottom: 20px;#}
+{#        }#}
+{#        legend {#}
+{#            font-size: 1.2em;#}
+{#            font-weight: bold;#}
+{#            margin-bottom: 10px;#}
+{#        }#}
+{#        .add-more-container {#}
+{#            text-align: center;#}
+{#            margin: 20px 0;#}
+{#        }#}
+{#    </style>#}
+{#</head>#}
+{#<body>#}
+{#    <div class="container">#}
+{#        <h1>Sales Entry Form</h1>#}
+{#        <form method="post" action="">#}
+{#            {% csrf_token %}#}
+{#            {{ formset.management_form }}#}
+{##}
+{#            <div id="formset-container">#}
+{#                {% for form in formset %}#}
+{#                <fieldset class="formset-form">#}
+{#                    <legend>Product {{ forloop.counter }}</legend>#}
+{#                    {% if form.non_field_errors %}#}
+{#                    <div class="non-field-errors">#}
+{#                        {% for error in form.non_field_errors %}#}
+{#                            <p>{{ error }}</p>#}
+{#                        {% endfor %}#}
+{#                    </div>#}
+{#                    {% endif %}#}
+{##}
+{#                    {% for field in form %}#}
+{#                        {% if field.name != 'total' %}#}
+{#                            <div class="form-group">#}
+{#                                <label for="{{ field.id_for_label }}">{{ field.label }}</label>#}
+{#                                {{ field }}#}
+{#                                {% if field.help_text %}#}
+{#                                <span class="tooltip">{{ field.help_text }}</span>#}
+{#                                {% endif %}#}
+{#                                {% if field.errors %}#}
+{#                                    <div class="error">#}
+{#                                        {% for error in field.errors %}#}
+{#                                            <p>{{ error }}</p>#}
+{#                                        {% endfor %}#}
+{#                                    </div>#}
+{#                                {% endif %}#}
+{#                            </div>#}
+{#                        {% endif %}#}
+{#                    {% endfor %}#}
+{##}
+{#                    <!-- Display total here -->#}
+{#                    <div class="display-total" id="display-total-{{ forloop.counter }}"></div>#}
+{#                </fieldset>#}
+{#                {% endfor %}#}
+{#            </div>#}
+{##}
+{#            <div class="add-more-container">#}
+{#                <button type="button" id="add-more">Add More Product</button>#}
+{#            </div>#}
+{##}
+{#            <button type="submit">Submit</button>#}
+{#        </form>#}
+{#    </div>#}
+{##}
+{#    <script>#}
+{#    document.addEventListener('DOMContentLoaded', function () {#}
+{#        const formsetContainer = document.getElementById('formset-container');#}
+{#        const addMoreButton = document.getElementById('add-more');#}
+{#        const totalFormsInput = document.querySelector('[name="form-TOTAL_FORMS"]');#}
+{#        const initialFormsInput = document.querySelector('[name="form-INITIAL_FORMS"]');#}
+{##}
+{#        // Setup total calculation events#}
+{#        function setupCalculation(formIndex) {#}
+{#            const quantityInput = document.getElementById(`id_form-${formIndex}-quantity`);#}
+{#            const priceInput = document.getElementById(`id_form-${formIndex}-price`);#}
+{#            const totalDisplay = document.getElementById(`display-total-${formIndex+1}`);#}
+{##}
+{#            function calculateTotal() {#}
+{#                const quantity = parseFloat(quantityInput.value) || 0;#}
+{#                const price = parseFloat(priceInput.value) || 0;#}
+{#                totalDisplay.textContent = 'Total: ' + (quantity * price).toFixed(2) + ' сум';#}
+{#            }#}
+{##}
+{#            if (quantityInput && priceInput && totalDisplay) {#}
+{#                quantityInput.addEventListener('input', calculateTotal);#}
+{#                priceInput.addEventListener('input', calculateTotal);#}
+{#                quantityInput.addEventListener('keyup', calculateTotal);#}
+{#                priceInput.addEventListener('keyup', calculateTotal);#}
+{#            }#}
+{#        }#}
+{##}
+{#        // Initialize calculation for existing forms#}
+{#        const initialFormsCount = parseInt(totalFormsInput.value);#}
+{#        for (let i = 0; i < initialFormsCount; i++) {#}
+{#            setupCalculation(i);#}
+{#        }#}
+{##}
+{#        addMoreButton.addEventListener('click', function (e) {#}
+{#            e.preventDefault();#}
+{#            let totalForms = parseInt(totalFormsInput.value);#}
+{##}
+{#            // Clone the last formset form#}
+{#            const lastForm = formsetContainer.querySelector('.formset-form:last-child');#}
+{#            const newForm = lastForm.cloneNode(true);#}
+{##}
+{#            // Update form index#}
+{#            const formRegex = new RegExp(`form-(\\d+)-`, 'g');#}
+{#            newForm.innerHTML = newForm.innerHTML.replace(formRegex, `form-${totalForms}-`);#}
+{##}
+{#            // Update the legend and display-total ID#}
+{#            const legend = newForm.querySelector('legend');#}
+{#            legend.textContent = `Product ${totalForms + 1}`;#}
+{#            const displayTotalDiv = newForm.querySelector('.display-total');#}
+{#            displayTotalDiv.id = `display-total-${totalForms + 1}`;#}
+{##}
+{#            // Clear out values from the cloned fields#}
+{#            const inputs = newForm.querySelectorAll('input, select');#}
+{#            inputs.forEach(input => {#}
+{#                if (input.name.indexOf('date') === -1) { #}
+{#                    // Keep date if it's automatically set#}
+{#                    input.value = '';#}
+{#                }#}
+{#            });#}
+{##}
+{#            formsetContainer.appendChild(newForm);#}
+{##}
+{#            // Increment total forms#}
+{#            totalFormsInput.value = totalForms + 1;#}
+{##}
+{#            // Setup calculation for the new form#}
+{#            setupCalculation(totalForms);#}
+{#        });#}
+{#    });#}
+{#    </script>#}
+{#</body>#}
+{#</html>#}
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sales Entry Form</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f6f9;
-            margin: 0;
+            margin: 0; 
             padding: 0;
         }
         .container {
@@ -16,125 +246,119 @@
             margin: 50px auto;
             background: white;
             border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
             padding: 20px 30px;
         }
-        h1 {
-            text-align: center;
-            color: #333;
-        }
-        label {
-            font-size: 1rem;
-            font-weight: bold;
-            color: #555;
-            display: block;
-            margin-bottom: 5px;
-        }
-        input, select, button {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 1rem;
-            box-sizing: border-box;
-        }
-        input:focus, select:focus {
-            border-color: #007bff;
-            outline: none;
-            box-shadow: 0 0 3px rgba(0, 123, 255, 0.5);
-        }
-        button {
-            background-color: #007bff;
-            color: white;
-            border: none;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-        button:hover {
-            background-color: #0056b3;
-        }
-        .display-total {
-            font-size: 1.5rem;
-            margin-top: 10px;
-            font-weight: bold;
-            color: #555;
-        }
-        .error {
-            color: red;
-            font-size: 0.9em;
-            margin-top: -10px;
-            margin-bottom: 10px;
-        }
-        .tooltip {
-            font-size: 0.9em;
-            color: #777;
-            margin-bottom: 10px;
-            display: block;
-        }
-        .form-group {
-            margin-bottom: 20px;
-        }
-        .non-field-errors {
-            background-color: #ffdddd;
-            padding: 10px;
-            margin-bottom: 20px;
-            border: 1px solid red;
-            border-radius: 4px;
-        }
-        @media (max-width: 768px) {
-            .container {
-                padding: 15px;
-            }
-        }
+        .display-total { font-size: 1.3rem; margin-top: 10px; font-weight: bold; }
+        fieldset { border: 1px solid #ddd; padding: 20px; margin-bottom: 20px; }
+        legend { font-size: 1.2em; font-weight: bold; margin-bottom: 10px; }
+        .error { color: red; }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Sales Entry Form</h1>
-        <form method="post" action="">
-            {% csrf_token %}
-            {% for field in form %}
-            {% if field.name != 'total' %}
-            <div class="form-group">
-                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-                {{ field }}
-                {% if field.help_text %}
-                <span class="tooltip">{{ field.help_text }}</span>
-                {% endif %}
-                {% if field.errors %}
+<div class="container">
+    <h1>Sales Entry Form</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ formset.management_form }}
+        <div id="formset-container">
+            {% for form in formset %}
+            <fieldset class="formset-form">
+                <legend>Product {{ forloop.counter }}</legend>
+
+                {% if form.non_field_errors %}
                     <div class="error">
-                        {% for error in field.errors %}
+                        {% for error in form.non_field_errors %}
                             <p>{{ error }}</p>
                         {% endfor %}
                     </div>
                 {% endif %}
-            </div>
-            {% endif %}
+
+                {% for field in form %}
+                    {% if field.name != 'total' %}
+                        <div>
+                            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                            {{ field }}
+                            {% if field.errors %}
+                                <div class="error">
+                                    {% for error in field.errors %}
+                                        <p>{{ error }}</p>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+
+                <div class="display-total" id="display-total-{{ forloop.counter }}"></div>
+            </fieldset>
             {% endfor %}
-            <div id="display-total" class="display-total"></div>
-            <button type="submit">Submit</button>
-        </form>
-    </div>
+        </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const quantityInput = document.getElementById('{{ form.quantity.id_for_html_id }}');
-            const priceInput = document.getElementById('{{ form.price.id_for_html_id }}');
-            const totalDisplay = document.getElementById('display-total');
+        <button type="button" id="add-more">Add More Product</button>
+        <button type="submit">Submit</button>
+    </form>
+</div>
 
-            function calculateTotal() {
-                const quantity = parseFloat(quantityInput.value) || 0;
-                const price = parseFloat(priceInput.value) || 0;
-                totalDisplay.textContent = 'Total: ' + (quantity * price).toFixed(2) + ' сум';
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const formsetContainer = document.getElementById('formset-container');
+    const addMoreBtn = document.getElementById('add-more');
+    const totalFormsInput = document.querySelector('[name="form-TOTAL_FORMS"]');
+
+    function setupCalculation(idx) {
+        const quantityInput = document.getElementById(`id_form-${idx}-quantity`);
+        const priceInput = document.getElementById(`id_form-${idx}-price`);
+        const totalDiv = document.getElementById(`display-total-${idx+1}`);
+
+        function calcTotal() {
+            const q = parseFloat(quantityInput.value) || 0;
+            const p = parseFloat(priceInput.value) || 0;
+            totalDiv.textContent = "Total: " + (q * p).toFixed(2) + " сум";
+        }
+
+        if (quantityInput && priceInput && totalDiv) {
+            quantityInput.addEventListener('input', calcTotal);
+            priceInput.addEventListener('input', calcTotal);
+        }
+    }
+
+    let formCount = parseInt(totalFormsInput.value) || 0;
+    for (let i = 0; i < formCount; i++) {
+        setupCalculation(i);
+    }
+
+    addMoreBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        let newIdx = parseInt(totalFormsInput.value);
+        const lastForm = formsetContainer.querySelector('.formset-form:last-child');
+        const newForm = lastForm.cloneNode(true);
+
+        // Update the index in the cloned HTML
+        const regex = new RegExp(`form-(\\d+)-`, 'g');
+        newForm.innerHTML = newForm.innerHTML.replace(regex, `form-${newIdx}-`);
+
+        // Update legend
+        const legend = newForm.querySelector('legend');
+        legend.textContent = `Product ${newIdx + 1}`;
+
+        // Update total display
+        const displayTotal = newForm.querySelector('.display-total');
+        displayTotal.id = `display-total-${newIdx + 1}`;
+
+        // Clear input values except date if you want to keep it
+        const inputs = newForm.querySelectorAll('input, select');
+        inputs.forEach(input => {
+            if (!input.name.includes('date')) {
+                input.value = '';
             }
-
-            quantityInput.addEventListener('input', calculateTotal);
-            priceInput.addEventListener('input', calculateTotal);
-            quantityInput.addEventListener('keyup', calculateTotal);
-            priceInput.addEventListener('keyup', calculateTotal);
         });
-    </script>
+
+        formsetContainer.appendChild(newForm);
+        totalFormsInput.value = newIdx + 1;
+        setupCalculation(newIdx);
+    });
+});
+</script>
 </body>
 </html>
